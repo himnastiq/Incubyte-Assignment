@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   AutoVault — "Vault & Chrome" design system
+   A bank-vault-meets-showroom aesthetic: pine-black steel, aged brass,
+   oxblood leather, patina copper. Ledger-style monospace for data,
+   a warm display serif for headlines.
+   ========================================================================== */
+
+@theme {
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Archivo", system-ui, -apple-system, sans-serif;
+
+  /* Vault neutrals — deep pine/gunmetal scale, base of the app */
+  --color-vault-950: #0a0f0c;
+  --color-vault-900: #0e1511;
+  --color-vault-850: #121a15;
+  --color-vault-800: #17211b;
+  --color-vault-700: #202c24;
+  --color-vault-600: #2c3b30;
+  --color-vault-500: #415142;
+  --color-vault-400: #647c67;
+  --color-vault-300: #8fa192;
+  --color-vault-200: #c4d0c5;
+  --color-vault-100: #e9eee9;
+
+  /* Brass — the primary accent, like an old safe-deposit plate */
+  --color-brass-700: #7a5c14;
+  --color-brass-600: #9c7a1a;
+  --color-brass-500: #c9a227;
+  --color-brass-400: #e0bb45;
+  --color-brass-300: #ecce74;
+  --color-brass-200: #f5e3ab;
+
+  /* Oxblood — danger / delete / alerts, worn leather red */
+  --color-oxblood-700: #501818;
+  --color-oxblood-600: #6e2222;
+  --color-oxblood-500: #8f3030;
+  --color-oxblood-400: #b3493f;
+  --color-oxblood-300: #d0776a;
+
+  /* Patina — success / in-stock, oxidised copper-green */
+  --color-patina-700: #163d30;
+  --color-patina-600: #1f5c47;
+  --color-patina-500: #2f7857;
+  --color-patina-400: #4f9c74;
+  --color-patina-300: #86c4a1;
+
+  /* Denim — muted steel blue, secondary category accent */
+  --color-denim-700: #1f3648;
+  --color-denim-600: #2c4a5e;
+  --color-denim-500: #3f6a86;
+  --color-denim-400: #6a93ac;
+  --color-denim-300: #a2c1d3;
+
+  /* Rust — burnt copper-orange, secondary category accent */
+  --color-rust-700: #5c3213;
+  --color-rust-600: #8a4a1f;
+  --color-rust-500: #b06428;
+  --color-rust-400: #d08a4f;
+  --color-rust-300: #e3b380;
+
+  /* Warm parchment ink for text on dark */
+  --color-ivory: #ede6d6;
+  --color-ivory-dim: #b7ae9a;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-slide-in: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-dial-spin: dial-spin 60s linear infinite;
+  --animate-needle: needle-settle 1.1s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes dial-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes needle-settle {
+  0% {
+    transform: rotate(-28deg);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(6deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-vault-950);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201, 162, 39, 0.10), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 0%, rgba(47, 120, 87, 0.08), transparent 55%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(233, 230, 214, 0.015) 0px,
+      rgba(233, 230, 214, 0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Brushed-steel scrollbar, brass thumb */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-vault-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-vault-600);
+  border-radius: 999px;
+  border: 2px solid var(--color-vault-900);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brass-600);
+}
+
+::selection {
+  background: rgba(201, 162, 39, 0.35);
+  color: var(--color-ivory);
+}
+
+/* Utility: ledger-style tracked label, used for eyebrow/meta text */
+.ledger-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
