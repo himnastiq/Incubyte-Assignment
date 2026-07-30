@@ -6,12 +6,13 @@ import SearchBar from "../components/SearchBar";
 import VehicleGrid from "../components/VehicleGrid";
 import type { Vehicle, SearchFilters, PaginationInfo } from "../types";
 import {
-  searchVehicles,
+  // searchVehicles, // TEMP: unused while testing with dummy data — restore when done
   purchaseVehicle as purchaseVehicleApi,
   deleteVehicle as deleteVehicleApi,
   restockVehicle as restockVehicleApi,
 } from "../api/endpoints";
 import { AxiosError } from "axios";
+import { dummyVehicles } from "../pages/dummyVehicles";
 
 export default function DashboardPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -24,19 +25,31 @@ export default function DashboardPage() {
   const navigate = useNavigate();
 
   const fetchVehicles = useCallback(
-    async (searchFilters: SearchFilters = {}, page = 1) => {
+    async (_searchFilters: SearchFilters = {}, _page = 1) => {
       setLoading(true);
-      try {
-        const result = await searchVehicles({ ...searchFilters, page });
-        setVehicles(result.vehicles);
-        setPagination(result.pagination);
-      } catch {
-        showToast("Failed to load vehicles", "error");
-      } finally {
-        setLoading(false);
-      }
+
+      // TEMP: using dummy data instead of the real API while testing images.
+      setVehicles(dummyVehicles);
+      setPagination({
+        page: 1,
+        limit: dummyVehicles.length,
+        total: dummyVehicles.length,
+        totalPages: 1,
+      });
+      setLoading(false);
+
+      // Restore this block (and the searchVehicles import above) when done testing:
+      // try {
+      //   const result = await searchVehicles({ ..._searchFilters, page: _page });
+      //   setVehicles(result.vehicles);
+      //   setPagination(result.pagination);
+      // } catch {
+      //   showToast("Failed to load vehicles", "error");
+      // } finally {
+      //   setLoading(false);
+      // }
     },
-    [showToast],
+    [],
   );
 
   useEffect(() => {
